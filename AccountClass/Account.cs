@@ -11,8 +11,10 @@ namespace AccountClass {
         public string Description { get; set; }
 
         public void Transfer(Account acct, decimal amount) {
-            this.Withdraw(amount);
-            acct.Deposit(amount);
+            var withdrawSuccessful = this.Withdraw(amount);
+            if (withdrawSuccessful) {
+                acct.Deposit(amount);
+            }
         }
         public Account() {
             AccountNumber = ++nextAccountNbr;
@@ -37,13 +39,16 @@ namespace AccountClass {
 
             return true;
         }
-        public void Deposit(decimal Amount) {
+        public bool Deposit(decimal Amount) {
             var valid = CheckAmountIsPositive(Amount);
             if (valid == true) {
                 Balance += Amount;
+                return true;
             }
+            return false;
         }
-        public void Withdraw(decimal Amount) {
+
+        public bool Withdraw(decimal Amount) {
             var valid = CheckAmountIsPositive(Amount);
             if (valid == true) {
                 if (Amount > Balance) {
@@ -51,9 +56,10 @@ namespace AccountClass {
                 }
                 else {
                     Balance -= Amount;
+                    return true;
                 }
             }
-
+            return false;
         }
     }
 }
