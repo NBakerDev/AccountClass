@@ -9,6 +9,11 @@ namespace AccountClass {
         public int AccountNumber { get; private set; }
         private decimal Balance { get; set; } = 0.0M;
         public string Description { get; set; }
+        public Customer CustomerInstance { get; set; } = null;
+
+        private Account(Customer customer) : this() {
+            this.CustomerInstance = customer;
+        }
 
         public void Transfer(Account acct, decimal amount) {
             var withdrawSuccessful = this.Withdraw(amount);
@@ -21,9 +26,10 @@ namespace AccountClass {
 
         }
 
-        public Account(string Description) : this() {
+        public Account(string Description, Customer customer) : this() {
 
             this.Description = Description;
+            this.CustomerInstance = customer;
         }
 
         public decimal GetBalance() {
