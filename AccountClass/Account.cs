@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 
 namespace AccountClass {
-    class Account {
+   public class Account {
 
         private static int nextAccountNbr = 0;
         public int AccountNumber { get; private set; }
@@ -11,7 +11,11 @@ namespace AccountClass {
         public string Description { get; set; }
         public Customer CustomerInstance { get; set; } = null;
 
-        private Account(Customer customer) : this() {
+        public string Print() {
+            return $"{this.GetType().Name} Nbr: {AccountNumber}, Desc: {Description}, Balance: {GetBalance().ToString("C")}";
+        }
+
+        public Account(Customer customer) : this() {
             this.CustomerInstance = customer;
         }
 
@@ -21,7 +25,7 @@ namespace AccountClass {
                 acct.Deposit(amount);
             }
         }
-        public Account() {
+        private Account() {
             AccountNumber = ++nextAccountNbr;
 
         }

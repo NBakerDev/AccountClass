@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 
 namespace AccountClass {
-    class Customer {
+   public class Customer {
 
         private static int nextIdNbr = 0;
 
